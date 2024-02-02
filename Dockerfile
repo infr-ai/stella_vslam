@@ -3,7 +3,8 @@ FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update
 RUN apt install -y build-essential git cmake clang-format \
-    libboost-all-dev libspdlog-dev libopencv-dev libeigen3-dev libgl1-mesa-dev \
+    libboost-all-dev libspdlog-dev libopencv-dev libeigen3-dev \
+    libgl1-mesa-dev libwayland-dev libxkbcommon-dev wayland-protocols libegl1-mesa-dev libc++-dev libglew-dev \
     libyaml-cpp-dev libsuitesparse-dev libsqlite3-dev
 
 WORKDIR /app
