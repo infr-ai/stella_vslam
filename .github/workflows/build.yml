@@ -1,0 +1,24 @@
+name: Build
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          lfs: true
+      - name: Build the Docker image
+        run: |
+          echo "Using Docker Registry: ${{ vars.DOCKER_REGISTRY }}"
+          echo "Using Docker Namespace: ${{ vars.DOCKER_NAMESPACE }}"
+
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin ${{ vars.DOCKER_REGISTRY }}
+          docker build . -t ${{ vars.DOCKER_REGISTRY }}/${{ vars.DOCKER_NAMESPACE }}/stella-vslam:0.4.0
+          docker push ${{ vars.DOCKER_REGISTRY }}/${{ vars.DOCKER_NAMESPACE }}/stella-vslam:0.4.0
