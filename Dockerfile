@@ -17,7 +17,8 @@ RUN cd /app && git clone --recursive https://github.com/stella-cv/FBoW.git && cd
     mkdir -p build && cd build && cmake .. && make -j && make install && cd /app
 
 # stella_vslam
-RUN cd /app && git clone --recursive https://github.com/stella-cv/stella_vslam.git && cd stella_vslam && git checkout a18add7 && \
-    mkdir -p build && cd build && cmake .. && make -j && make install && cd /app
+RUN cd /app && mkdir -p /app/stella_vslam && cd /app/stella_vslam
+COPY . .
+RUN mkdir -p build && cd build && cmake .. && make -j && make install && cd /app
 
 RUN wget https://github.com/stella-cv/FBoW_orb_vocab/raw/main/orb_vocab.fbow -O /app/orb_vocab.fbow
